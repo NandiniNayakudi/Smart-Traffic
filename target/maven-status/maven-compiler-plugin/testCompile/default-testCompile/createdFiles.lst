@@ -1,0 +1,5 @@
+com\traffic\service\TrafficIngestionServiceTest.class
+com\traffic\controller\TrafficControllerTest.class
+com\traffic\TrafficManagementApplicationTests.class
+com\traffic\service\PredictionServiceTest.class
+com\traffic\service\AuthServiceTest.class

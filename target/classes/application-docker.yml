@@ -1,0 +1,78 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: traffic-management-system
+  
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql-db:3306/traffic_db}
+    username: ${SPRING_DATASOURCE_USERNAME:traffic_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:traffic_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:dockerSecretKey123456789012345678901234567890}
+  expiration: 86400000 # 24 hours in milliseconds
+
+# Google Maps API Configuration
+google:
+  maps:
+    api-key: ${GOOGLE_MAPS_API_KEY:your-api-key-here}
+
+# ML Model Configuration
+ml:
+  model:
+    endpoint: ${ML_MODEL_ENDPOINT:http://ml-service:5000/predict}
+    timeout: 5000
+
+# Traffic Data Configuration
+traffic:
+  data:
+    retention-days: 30
+    batch-size: 100
+
+# Logging Configuration
+logging:
+  level:
+    com.traffic: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Management endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method

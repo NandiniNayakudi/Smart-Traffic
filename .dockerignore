@@ -1,0 +1,51 @@
+# Docker ignore file for Traffic Management System
+
+# Target directory
+target/
+!target/traffic-management-system-1.0.0.jar
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Node modules (if any)
+node_modules/
+
+# Docker files (don't copy into container)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+README.md
+docs/
+
+# Scripts
+scripts/
+
+# Test files
+src/test/
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd

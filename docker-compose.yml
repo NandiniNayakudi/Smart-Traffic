@@ -1,0 +1,157 @@
+version: '3.8'
+
+services:
+  # Traffic Management System Application
+  traffic-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traffic-management-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/traffic_db
+      - SPRING_DATASOURCE_USERNAME=traffic_user
+      - SPRING_DATASOURCE_PASSWORD=traffic_password
+      - JWT_SECRET=dockerSecretKey123456789012345678901234567890
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY:-your-api-key-here}
+      - ML_MODEL_ENDPOINT=${ML_MODEL_ENDPOINT:-http://ml-service:5000/predict}
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - traffic-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # MySQL Database
+  mysql-db:
+    image: mysql:8.0
+    container_name: traffic-mysql-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=traffic_db
+      - MYSQL_USER=traffic_user
+      - MYSQL_PASSWORD=traffic_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - traffic-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Redis for Caching (Optional)
+  redis-cache:
+    image: redis:7-alpine
+    container_name: traffic-redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - traffic-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ML Model Service (Mock)
+  ml-service:
+    image: python:3.9-slim
+    container_name: traffic-ml-service
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./docker/ml-service:/app
+    working_dir: /app
+    command: python mock_ml_service.py
+    networks:
+      - traffic-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: traffic-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - traffic-app
+    networks:
+      - traffic-network
+    restart: unless-stopped
+
+  # Monitoring with Prometheus (Optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: traffic-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    networks:
+      - traffic-network
+    restart: unless-stopped
+
+  # Grafana for Visualization (Optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: traffic-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./docker/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - traffic-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  traffic-network:
+    driver: bridge

@@ -19,9 +19,11 @@ import java.util.List;
 
 /**
  * Main controller for traffic management endpoints
+ * Enhanced for Smart City Traffic Optimization System Using Cloud-Based AI
+ * Research by: Ballaram Krishna Chaithanya, Nandini Nayakudi, Siddharth Vinayak Bahl, Meenakshi
  */
 @RestController
-@RequestMapping("/traffic")
+@RequestMapping("/api/v1/traffic")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Traffic Management", description = "APIs for traffic data management and optimization")
@@ -133,15 +135,83 @@ public class TrafficController {
      * Get all traffic data for a location
      */
     @GetMapping("/data")
-    @Operation(summary = "Get traffic data", 
+    @Operation(summary = "Get traffic data",
                description = "Retrieve traffic data for a specific location")
     public ResponseEntity<List<TrafficData>> getTrafficData(
             @Parameter(description = "Location name") @RequestParam(required = false) String location,
             @Parameter(description = "Limit results") @RequestParam(defaultValue = "100") Integer limit) {
-        
+
         log.info("Getting traffic data for location: {} (limit: {})", location, limit);
-        
+
         List<TrafficData> data = trafficIngestionService.getTrafficData(location, limit);
         return ResponseEntity.ok(data);
+    }
+
+    /**
+     * Get current traffic conditions (for frontend dashboard)
+     */
+    @GetMapping("/current")
+    @Operation(summary = "Get current traffic conditions",
+               description = "Retrieve current real-time traffic conditions for dashboard")
+    public ResponseEntity<List<TrafficData>> getCurrentTrafficConditions() {
+        log.info("Getting current traffic conditions");
+
+        try {
+            List<TrafficData> currentData = trafficIngestionService.getCurrentTrafficData();
+            return ResponseEntity.ok(currentData);
+        } catch (Exception e) {
+            log.error("Error fetching current traffic data", e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    /**
+     * Get traffic statistics (for frontend dashboard)
+     */
+    @GetMapping("/stats")
+    @Operation(summary = "Get traffic statistics",
+               description = "Retrieve traffic statistics and metrics for dashboard")
+    public ResponseEntity<java.util.Map<String, Object>> getTrafficStats() {
+        log.info("Getting traffic statistics");
+
+        try {
+            java.util.Map<String, Object> stats = trafficIngestionService.getTrafficStatistics();
+            return ResponseEntity.ok(stats);
+        } catch (Exception e) {
+            log.error("Error fetching traffic statistics", e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    /**
+     * Health check endpoint
+     */
+    @GetMapping("/health")
+    @Operation(summary = "Traffic service health check",
+               description = "Check the health status of traffic management service")
+    public ResponseEntity<java.util.Map<String, Object>> healthCheck() {
+        log.info("Traffic service health check requested");
+
+        try {
+            java.util.Map<String, Object> health = java.util.Map.of(
+                "status", "UP",
+                "service", "Traffic Management",
+                "timestamp", LocalDateTime.now(),
+                "components", java.util.Map.of(
+                    "dataIngestion", "ACTIVE",
+                    "prediction", "RUNNING",
+                    "routing", "OPERATIONAL",
+                    "signalOptimization", "ACTIVE"
+                )
+            );
+            return ResponseEntity.ok(health);
+        } catch (Exception e) {
+            log.error("Health check failed", e);
+            return ResponseEntity.status(503).body(java.util.Map.of(
+                "status", "DOWN",
+                "error", e.getMessage(),
+                "timestamp", LocalDateTime.now()
+            ));
+        }
     }
 }

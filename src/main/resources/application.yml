@@ -1,7 +1,7 @@
 server:
   port: 8081
   servlet:
-    context-path: /api/v1
+    context-path: /
 
 spring:
   application:
@@ -33,13 +33,39 @@ spring:
     deserialization:
       fail-on-unknown-properties: false
 
+  # Web Configuration
+  web:
+    resources:
+      static-locations: classpath:/static/
+  mvc:
+    static-path-pattern: /static/**
+
 # JWT Configuration
 jwt:
   secret: mySecretKey123456789012345678901234567890
   expiration: 86400000 # 24 hours in milliseconds
 
-# Google Maps API Configuration
+# Google Cloud Configuration
 google:
+  cloud:
+    project-id: ${GOOGLE_CLOUD_PROJECT_ID:your-google-cloud-project-id}
+    project-number: ${GOOGLE_CLOUD_PROJECT_NUMBER:your-project-number}
+    credentials:
+      location: ${GOOGLE_APPLICATION_CREDENTIALS:./google-cloud-key.json}
+    ai:
+      endpoint: ${GOOGLE_AI_ENDPOINT:https://ml.googleapis.com/v1}
+      model-name: ${GOOGLE_AI_MODEL:traffic-prediction-model}
+    bigquery:
+      enabled: ${GOOGLE_CLOUD_BIGQUERY_ENABLED:true}
+      dataset: ${BIGQUERY_DATASET:traffic_analytics}
+      location: ${BIGQUERY_LOCATION:US}
+    pubsub:
+      enabled: ${GOOGLE_CLOUD_PUBSUB_ENABLED:true}
+      topic: ${PUBSUB_TOPIC:traffic-updates}
+      subscription: ${PUBSUB_SUBSCRIPTION:traffic-updates-subscription}
+    storage:
+      enabled: ${GOOGLE_CLOUD_STORAGE_ENABLED:true}
+      bucket: ${CLOUD_STORAGE_BUCKET:smart-traffic-data}
   maps:
     api-key: ${GOOGLE_MAPS_API_KEY:your-api-key-here}
 
@@ -54,6 +80,14 @@ traffic:
   data:
     retention-days: 30
     batch-size: 100
+  ai:
+    prediction-horizon-hours: 6
+    confidence-threshold: 0.8
+    model-update-interval: 3600 # seconds
+  eco-routes:
+    co2-threshold: 2.0 # kg
+    eco-score-threshold: 70.0
+    sdg11-threshold: 70.0
 
 # Logging Configuration
 logging:

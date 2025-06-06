@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.traffic.service.TrafficIngestionServiceTest
--------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.355 s -- in com.traffic.service.TrafficIngestionServiceTest

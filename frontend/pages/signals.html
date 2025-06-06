@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Control - Smart Traffic Management System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/signals.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <i class="fas fa-traffic-light"></i>
+                <span>SmartTraffic</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="monitoring.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Traffic Monitor</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="routes.html" class="nav-link">
+                        <i class="fas fa-route"></i>
+                        <span>Route Planning</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="signals.html" class="nav-link active">
+                        <i class="fas fa-traffic-light"></i>
+                        <span>Signal Control</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Loading...</div>
+                    <div class="user-role" id="userRole">Loading...</div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Signal Control</h1>
+            </div>
+            
+            <div class="top-bar-right">
+                <div class="signal-controls">
+                    <button class="btn btn-secondary" id="emergencyMode">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Emergency Mode
+                    </button>
+                    <button class="btn btn-primary" id="optimizeAll">
+                        <i class="fas fa-magic"></i>
+                        Optimize All
+                    </button>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Signal Control Content -->
+        <div class="signals-content">
+            <!-- Signal Overview Section -->
+            <section class="signal-overview-section">
+                <div class="overview-header">
+                    <h3>
+                        <i class="fas fa-traffic-light"></i>
+                        Signal Overview
+                    </h3>
+                    <div class="overview-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="totalSignals">24</span>
+                            <span class="stat-label">Total Signals</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value optimal" id="optimalSignals">18</span>
+                            <span class="stat-label">Optimal</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value warning" id="warningSignals">4</span>
+                            <span class="stat-label">Needs Attention</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value critical" id="criticalSignals">2</span>
+                            <span class="stat-label">Critical</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Signal Grid Section -->
+            <section class="signal-grid-section">
+                <div class="signal-grid">
+                    <!-- Signal Control Cards -->
+                    <div class="signal-card optimal" data-signal-id="1">
+                        <div class="signal-header">
+                            <h4>Main St & 1st Ave</h4>
+                            <div class="signal-status">
+                                <span class="status-indicator optimal"></span>
+                                <span class="status-text">Optimal</span>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-visual">
+                            <div class="traffic-light">
+                                <div class="light red"></div>
+                                <div class="light yellow"></div>
+                                <div class="light green active"></div>
+                            </div>
+                            <div class="signal-timing">
+                                <div class="timing-info">
+                                    <span class="phase">Green Phase</span>
+                                    <span class="countdown">28s</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-controls">
+                            <button class="btn btn-sm btn-secondary" onclick="adjustTiming(1)">
+                                <i class="fas fa-clock"></i>
+                                Adjust
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="optimizeSignal(1)">
+                                <i class="fas fa-magic"></i>
+                                Optimize
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="signal-card warning" data-signal-id="2">
+                        <div class="signal-header">
+                            <h4>Broadway & 5th St</h4>
+                            <div class="signal-status">
+                                <span class="status-indicator warning"></span>
+                                <span class="status-text">Needs Attention</span>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-visual">
+                            <div class="traffic-light">
+                                <div class="light red active"></div>
+                                <div class="light yellow"></div>
+                                <div class="light green"></div>
+                            </div>
+                            <div class="signal-timing">
+                                <div class="timing-info">
+                                    <span class="phase">Red Phase</span>
+                                    <span class="countdown">45s</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-controls">
+                            <button class="btn btn-sm btn-secondary" onclick="adjustTiming(2)">
+                                <i class="fas fa-clock"></i>
+                                Adjust
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="optimizeSignal(2)">
+                                <i class="fas fa-magic"></i>
+                                Optimize
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="signal-card critical" data-signal-id="3">
+                        <div class="signal-header">
+                            <h4>Tech Blvd & Innovation Dr</h4>
+                            <div class="signal-status">
+                                <span class="status-indicator critical"></span>
+                                <span class="status-text">Critical</span>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-visual">
+                            <div class="traffic-light">
+                                <div class="light red"></div>
+                                <div class="light yellow active"></div>
+                                <div class="light green"></div>
+                            </div>
+                            <div class="signal-timing">
+                                <div class="timing-info">
+                                    <span class="phase">Yellow Phase</span>
+                                    <span class="countdown">3s</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-controls">
+                            <button class="btn btn-sm btn-warning" onclick="emergencyOverride(3)">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Override
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="optimizeSignal(3)">
+                                <i class="fas fa-magic"></i>
+                                Optimize
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="signal-card optimal" data-signal-id="4">
+                        <div class="signal-header">
+                            <h4>Park Ave & Central</h4>
+                            <div class="signal-status">
+                                <span class="status-indicator optimal"></span>
+                                <span class="status-text">Optimal</span>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-visual">
+                            <div class="traffic-light">
+                                <div class="light red"></div>
+                                <div class="light yellow"></div>
+                                <div class="light green active"></div>
+                            </div>
+                            <div class="signal-timing">
+                                <div class="timing-info">
+                                    <span class="phase">Green Phase</span>
+                                    <span class="countdown">35s</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-controls">
+                            <button class="btn btn-sm btn-secondary" onclick="adjustTiming(4)">
+                                <i class="fas fa-clock"></i>
+                                Adjust
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="optimizeSignal(4)">
+                                <i class="fas fa-magic"></i>
+                                Optimize
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="signal-card warning" data-signal-id="5">
+                        <div class="signal-header">
+                            <h4>Commerce St & Market</h4>
+                            <div class="signal-status">
+                                <span class="status-indicator warning"></span>
+                                <span class="status-text">Needs Attention</span>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-visual">
+                            <div class="traffic-light">
+                                <div class="light red active"></div>
+                                <div class="light yellow"></div>
+                                <div class="light green"></div>
+                            </div>
+                            <div class="signal-timing">
+                                <div class="timing-info">
+                                    <span class="phase">Red Phase</span>
+                                    <span class="countdown">52s</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-controls">
+                            <button class="btn btn-sm btn-secondary" onclick="adjustTiming(5)">
+                                <i class="fas fa-clock"></i>
+                                Adjust
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="optimizeSignal(5)">
+                                <i class="fas fa-magic"></i>
+                                Optimize
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="signal-card optimal" data-signal-id="6">
+                        <div class="signal-header">
+                            <h4>University Ave & College</h4>
+                            <div class="signal-status">
+                                <span class="status-indicator optimal"></span>
+                                <span class="status-text">Optimal</span>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-visual">
+                            <div class="traffic-light">
+                                <div class="light red"></div>
+                                <div class="light yellow"></div>
+                                <div class="light green active"></div>
+                            </div>
+                            <div class="signal-timing">
+                                <div class="timing-info">
+                                    <span class="phase">Green Phase</span>
+                                    <span class="countdown">22s</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="signal-controls">
+                            <button class="btn btn-sm btn-secondary" onclick="adjustTiming(6)">
+                                <i class="fas fa-clock"></i>
+                                Adjust
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="optimizeSignal(6)">
+                                <i class="fas fa-magic"></i>
+                                Optimize
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Signal Management Section -->
+            <section class="signal-management-section">
+                <div class="management-header">
+                    <h3>
+                        <i class="fas fa-cogs"></i>
+                        Signal Management
+                    </h3>
+                </div>
+                
+                <div class="management-grid">
+                    <div class="management-card">
+                        <div class="card-header">
+                            <h4>Timing Patterns</h4>
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="pattern-list">
+                                <div class="pattern-item active">
+                                    <span class="pattern-name">Rush Hour</span>
+                                    <span class="pattern-status">Active</span>
+                                </div>
+                                <div class="pattern-item">
+                                    <span class="pattern-name">Normal Traffic</span>
+                                    <span class="pattern-status">Standby</span>
+                                </div>
+                                <div class="pattern-item">
+                                    <span class="pattern-name">Night Mode</span>
+                                    <span class="pattern-status">Scheduled</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-full">
+                                <i class="fas fa-plus"></i>
+                                Create Pattern
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="management-card">
+                        <div class="card-header">
+                            <h4>Emergency Controls</h4>
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="emergency-controls">
+                                <button class="btn btn-warning btn-full">
+                                    <i class="fas fa-hand-paper"></i>
+                                    All Stop
+                                </button>
+                                <button class="btn btn-danger btn-full">
+                                    <i class="fas fa-ambulance"></i>
+                                    Emergency Vehicle Priority
+                                </button>
+                                <button class="btn btn-info btn-full">
+                                    <i class="fas fa-tools"></i>
+                                    Maintenance Mode
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="management-card">
+                        <div class="card-header">
+                            <h4>System Status</h4>
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="status-list">
+                                <div class="status-item">
+                                    <span class="status-label">Communication</span>
+                                    <span class="status-value online">Online</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Central Controller</span>
+                                    <span class="status-value online">Active</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Backup System</span>
+                                    <span class="status-value standby">Standby</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Last Update</span>
+                                    <span class="status-value">2 sec ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/signals.js"></script>
+</body>
+</html>

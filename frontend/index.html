@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Traffic Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-traffic-light"></i>
+                <span>SmartTraffic</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="pages/login.html" class="nav-link btn-primary">Login</a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Smart City Traffic Optimization System
+                    <span class="gradient-text">Using Cloud-Based AI</span>
+                </h1>
+                <p class="hero-description">
+                    Advanced traffic optimization leveraging Google Cloud AI, BigQuery, and machine learning
+                    for eco-conscious route recommendations, congestion prediction, and sustainable urban mobility.
+                </p>
+                <div class="research-attribution">
+                    <p class="research-info">
+                        <i class="fas fa-university"></i>
+                        <strong>Research Project:</strong> Ballaram Krishna Chaithanya, Nandini Nayakudi, Siddharth Vinayak Bahl, Meenakshi<br>
+                        <span class="institution">Department of Computer Science and Engineering, Amrita School of Engineering, Amritapuri, Kerala</span>
+                    </p>
+                </div>
+                <div class="hero-buttons">
+                    <a href="pages/login.html" class="btn btn-primary">
+                        <i class="fas fa-cloud"></i>
+                        Access AI System
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <i class="fas fa-brain"></i>
+                        Explore AI Features
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">AI</div>
+                        <div class="stat-label">Google Cloud ML</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">30%</div>
+                        <div class="stat-label">CO₂ Reduction</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">BigQuery</div>
+                        <div class="stat-label">Real-time Analytics</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="traffic-animation">
+                    <div class="traffic-light">
+                        <div class="light red"></div>
+                        <div class="light yellow"></div>
+                        <div class="light green active"></div>
+                    </div>
+                    <div class="road-network">
+                        <div class="road horizontal"></div>
+                        <div class="road vertical"></div>
+                        <div class="vehicle car1"></div>
+                        <div class="vehicle car2"></div>
+                        <div class="vehicle car3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-description">
+                    Comprehensive traffic management solutions powered by advanced AI and real-time data analytics
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h3>Google Cloud AI</h3>
+                    <p>Advanced machine learning using Google Cloud AI and BigQuery for traffic prediction and optimization.</p>
+                    <a href="pages/ai-analytics.html" class="feature-link">
+                        Explore AI Analytics <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Eco-Friendly Routes</h3>
+                    <p>AI-powered route recommendations that minimize carbon emissions and promote sustainable urban mobility.</p>
+                    <a href="pages/routes.html" class="feature-link">
+                        Plan Eco Routes <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-traffic-light"></i>
+                    </div>
+                    <h3>Signal Management</h3>
+                    <p>Intelligent traffic signal control with adaptive timing based on real-time traffic flow.</p>
+                    <a href="pages/signals.html" class="feature-link">
+                        Manage Signals <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-time Monitoring</h3>
+                    <p>Live traffic data visualization with comprehensive dashboards and alert systems.</p>
+                    <a href="pages/monitoring.html" class="feature-link">
+                        View Monitor <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Responsive</h3>
+                    <p>Access the system from any device with our fully responsive web application.</p>
+                    <a href="#" class="feature-link">
+                        Mobile App <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure & Reliable</h3>
+                    <p>Enterprise-grade security with role-based access control and 99.9% uptime guarantee.</p>
+                    <a href="#" class="feature-link">
+                        Security Info <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Smart Traffic Management</h2>
+                    <p>
+                        Our Smart Traffic Management System represents the next generation of urban mobility solutions. 
+                        By leveraging cutting-edge AI technology, real-time data processing, and intelligent algorithms, 
+                        we're transforming how cities manage traffic flow and reduce congestion.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Real-time traffic data processing</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>AI-powered predictive analytics</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Adaptive signal optimization</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Comprehensive reporting dashboard</span>
+                        </div>
+                    </div>
+                    <a href="pages/about.html" class="btn btn-primary">Learn More</a>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-city"></i>
+                        <p>Smart City Visualization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get Started Today</h2>
+                <p class="section-description">
+                    Ready to transform your city's traffic management? Contact us for a demo or consultation.
+                </p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@smarttraffic.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Smart City Ave, Tech District</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-actions">
+                    <a href="pages/login.html" class="btn btn-primary btn-large">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Access Dashboard
+                    </a>
+                    <a href="pages/demo.html" class="btn btn-secondary btn-large">
+                        <i class="fas fa-play"></i>
+                        Request Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-brand">
+                        <i class="fas fa-traffic-light"></i>
+                        <span>SmartTraffic</span>
+                    </div>
+                    <p>Revolutionizing urban mobility with intelligent traffic management solutions.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Product</h4>
+                        <a href="pages/dashboard.html">Dashboard</a>
+                        <a href="pages/analytics.html">Analytics</a>
+                        <a href="pages/routes.html">Route Planning</a>
+                        <a href="pages/signals.html">Signal Control</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Company</h4>
+                        <a href="pages/about.html">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Press</a>
+                        <a href="#">Contact</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <a href="#">Documentation</a>
+                        <a href="#">Help Center</a>
+                        <a href="#">API Reference</a>
+                        <a href="#">Status</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Smart Traffic Management System. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.traffic.service;
 
 import com.traffic.dto.AuthRequest;
 import com.traffic.dto.AuthResponse;
+import com.traffic.dto.RegisterRequest;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -34,11 +35,14 @@ public class AuthService {
     private final Set<String> blacklistedTokens = ConcurrentHashMap.newKeySet();
 
     // Demo users - In production, this would be from a database
-    private final Map<String, String> users = Map.of(
+    private final Map<String, String> users = new ConcurrentHashMap<>(Map.of(
             "admin", passwordEncoder.encode("secure123"),
             "user", passwordEncoder.encode("password123"),
             "traffic_manager", passwordEncoder.encode("traffic2024")
-    );
+    ));
+
+    // User details storage - In production, this would be from a database
+    private final Map<String, Map<String, String>> userDetails = new ConcurrentHashMap<>();
 
     /**
      * Authenticate user and generate JWT token
@@ -62,6 +66,59 @@ public class AuthService {
         } catch (Exception e) {
             log.error("Authentication failed: {}", e.getMessage());
             throw new RuntimeException("Authentication failed", e);
+        }
+    }
+
+    /**
+     * Register new user
+     */
+    public AuthResponse register(RegisterRequest registerRequest) {
+        try {
+            String username = registerRequest.getUsername();
+            String email = registerRequest.getEmail();
+
+            // Check if username already exists
+            if (users.containsKey(username)) {
+                throw new RuntimeException("Username already exists");
+            }
+
+            // Check if email already exists (simplified check)
+            boolean emailExists = userDetails.values().stream()
+                    .anyMatch(details -> email.equals(details.get("email")));
+            if (emailExists) {
+                throw new RuntimeException("Email already registered");
+            }
+
+            // Encode password
+            String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
+
+            // Store user credentials
+            users.put(username, encodedPassword);
+
+            // Store user details
+            Map<String, String> details = new HashMap<>();
+            details.put("firstName", registerRequest.getFirstName());
+            details.put("lastName", registerRequest.getLastName());
+            details.put("email", registerRequest.getEmail());
+            details.put("organization", registerRequest.getOrganization());
+            details.put("role", registerRequest.getRole());
+            details.put("phoneNumber", registerRequest.getPhoneNumber());
+            details.put("department", registerRequest.getDepartment());
+            details.put("jobTitle", registerRequest.getJobTitle());
+            details.put("subscribeNewsletter", String.valueOf(registerRequest.isSubscribeNewsletter()));
+            details.put("registrationDate", new Date().toString());
+
+            userDetails.put(username, details);
+
+            // Generate JWT token for immediate login
+            String token = generateToken(username);
+
+            log.info("User registration successful: {}", username);
+            return new AuthResponse(token, jwtExpiration, username);
+
+        } catch (Exception e) {
+            log.error("Registration failed: {}", e.getMessage());
+            throw new RuntimeException("Registration failed: " + e.getMessage(), e);
         }
     }
 

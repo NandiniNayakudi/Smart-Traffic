@@ -92,7 +92,39 @@ public interface TrafficDataRepository extends JpaRepository<TrafficData, Long> 
            "ABS(t.latitude - :lat) <= :radius AND " +
            "ABS(t.longitude - :lon) <= :radius " +
            "ORDER BY t.timestamp DESC")
-    List<TrafficData> findTrafficDataNearCoordinates(@Param("lat") Double latitude, 
-                                                    @Param("lon") Double longitude, 
+    List<TrafficData> findTrafficDataNearCoordinates(@Param("lat") Double latitude,
+                                                    @Param("lon") Double longitude,
                                                     @Param("radius") Double radius);
+
+    /**
+     * Count distinct locations (for total intersections)
+     */
+    @Query("SELECT COUNT(DISTINCT t.location) FROM TrafficData t")
+    long countDistinctLocations();
+
+    /**
+     * Count traffic data by density types and timestamp after
+     */
+    long countByTrafficDensityInAndTimestampAfter(List<TrafficData.TrafficDensity> densities, LocalDateTime timestamp);
+
+    /**
+     * Get traffic data by density and timestamp after
+     */
+    List<TrafficData> findByTrafficDensityInAndTimestampAfterOrderByTimestampDesc(
+            List<TrafficData.TrafficDensity> densities, LocalDateTime timestamp);
+
+    /**
+     * Get latest traffic data for each location
+     */
+    @Query("SELECT t FROM TrafficData t WHERE t.timestamp = " +
+           "(SELECT MAX(t2.timestamp) FROM TrafficData t2 WHERE t2.location = t.location)")
+    List<TrafficData> findLatestTrafficDataPerLocation();
+
+    /**
+     * Get traffic statistics by location
+     */
+    @Query("SELECT t.location, COUNT(t), AVG(t.vehicleCount), AVG(t.averageSpeed) " +
+           "FROM TrafficData t WHERE t.timestamp >= :since " +
+           "GROUP BY t.location ORDER BY COUNT(t) DESC")
+    List<Object[]> getTrafficStatsByLocation(@Param("since") LocalDateTime since);
 }

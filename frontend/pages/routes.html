@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Planning - Smart Traffic Management System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/routes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <i class="fas fa-traffic-light"></i>
+                <span>SmartTraffic</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="monitoring.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Traffic Monitor</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="routes.html" class="nav-link active">
+                        <i class="fas fa-route"></i>
+                        <span>Route Planning</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="signals.html" class="nav-link">
+                        <i class="fas fa-traffic-light"></i>
+                        <span>Signal Control</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Loading...</div>
+                    <div class="user-role" id="userRole">Loading...</div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Route Planning</h1>
+            </div>
+            
+            <div class="top-bar-right">
+                <div class="route-controls">
+                    <button class="btn btn-secondary" id="clearRoutes">
+                        <i class="fas fa-trash"></i>
+                        Clear All
+                    </button>
+                    <button class="btn btn-primary" id="optimizeRoutes">
+                        <i class="fas fa-magic"></i>
+                        Optimize Routes
+                    </button>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Route Planning Content -->
+        <div class="routes-content">
+            <!-- Route Planning Form -->
+            <section class="route-form-section">
+                <div class="route-form-container">
+                    <div class="form-header">
+                        <h3>
+                            <i class="fas fa-map-marked-alt"></i>
+                            Plan New Route
+                        </h3>
+                    </div>
+                    
+                    <form class="route-form" id="routeForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Origin
+                                </label>
+                                <input 
+                                    type="text" 
+                                    class="form-input" 
+                                    id="originInput"
+                                    placeholder="Enter starting location"
+                                    required
+                                >
+                                <div class="location-suggestions" id="originSuggestions"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-flag-checkered"></i>
+                                    Destination
+                                </label>
+                                <input 
+                                    type="text" 
+                                    class="form-input" 
+                                    id="destinationInput"
+                                    placeholder="Enter destination"
+                                    required
+                                >
+                                <div class="location-suggestions" id="destinationSuggestions"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-clock"></i>
+                                    Departure Time
+                                </label>
+                                <input 
+                                    type="datetime-local" 
+                                    class="form-input" 
+                                    id="departureTime"
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-cog"></i>
+                                    Route Preference
+                                </label>
+                                <select class="form-select" id="routePreference">
+                                    <option value="fastest">Fastest Route</option>
+                                    <option value="shortest">Shortest Distance</option>
+                                    <option value="eco">Eco-Friendly</option>
+                                    <option value="avoid_traffic">Avoid Traffic</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                                Find Routes
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="addWaypoint">
+                                <i class="fas fa-plus"></i>
+                                Add Waypoint
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Route Results and Map -->
+            <section class="route-results-section">
+                <div class="results-grid">
+                    <!-- Map Container -->
+                    <div class="map-container">
+                        <div class="map-header">
+                            <h3>
+                                <i class="fas fa-map"></i>
+                                Route Map
+                            </h3>
+                            <div class="map-controls">
+                                <button class="map-control-btn active" data-view="traffic">
+                                    <i class="fas fa-car"></i>
+                                    Traffic
+                                </button>
+                                <button class="map-control-btn" data-view="satellite">
+                                    <i class="fas fa-satellite"></i>
+                                    Satellite
+                                </button>
+                                <button class="map-control-btn" data-view="terrain">
+                                    <i class="fas fa-mountain"></i>
+                                    Terrain
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="route-map" id="routeMap">
+                            <!-- Simulated Route Map -->
+                            <div class="route-visualization">
+                                <div class="route-point origin">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Origin</span>
+                                </div>
+
+                                <div class="route-path">
+                                    <div class="route-segment optimal"></div>
+                                    <div class="route-segment warning"></div>
+                                    <div class="route-segment optimal"></div>
+                                </div>
+
+                                <div class="route-point destination">
+                                    <i class="fas fa-flag-checkered"></i>
+                                    <span>Destination</span>
+                                </div>
+
+                                <div class="traffic-indicators">
+                                    <div class="traffic-indicator light" style="top: 25%; left: 35%;"></div>
+                                    <div class="traffic-indicator moderate" style="top: 45%; left: 65%;"></div>
+                                    <div class="traffic-indicator heavy" style="top: 70%; left: 45%;"></div>
+                                </div>
+
+                                <div class="map-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-color optimal"></div>
+                                        <span>Light Traffic</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color warning"></div>
+                                        <span>Moderate Traffic</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color critical"></div>
+                                        <span>Heavy Traffic</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Route Options -->
+                    <div class="route-options-container">
+                        <div class="options-header">
+                            <h3>
+                                <i class="fas fa-list"></i>
+                                Route Options
+                            </h3>
+                            <div class="options-controls">
+                                <button class="btn btn-sm btn-secondary" id="refreshRoutes">
+                                    <i class="fas fa-sync-alt"></i>
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="route-options" id="routeOptions">
+                            <div class="route-option recommended">
+                                <div class="route-option-header">
+                                    <div class="route-badge">
+                                        <i class="fas fa-star"></i>
+                                        Recommended
+                                    </div>
+                                    <div class="route-time">18 min</div>
+                                </div>
+                                <div class="route-details">
+                                    <div class="route-info">
+                                        <span class="route-distance">12.3 km</span>
+                                        <span class="route-type">Via Main Street</span>
+                                    </div>
+                                    <div class="route-conditions">
+                                        <span class="condition light">Light traffic</span>
+                                        <span class="condition-time">Current conditions</span>
+                                    </div>
+                                </div>
+                                <div class="route-actions">
+                                    <button class="btn btn-sm btn-primary">Select Route</button>
+                                    <button class="btn btn-sm btn-secondary">View Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="route-option">
+                                <div class="route-option-header">
+                                    <div class="route-badge alternative">
+                                        <i class="fas fa-route"></i>
+                                        Alternative
+                                    </div>
+                                    <div class="route-time">22 min</div>
+                                </div>
+                                <div class="route-details">
+                                    <div class="route-info">
+                                        <span class="route-distance">10.8 km</span>
+                                        <span class="route-type">Via Highway 101</span>
+                                    </div>
+                                    <div class="route-conditions">
+                                        <span class="condition moderate">Moderate traffic</span>
+                                        <span class="condition-time">Current conditions</span>
+                                    </div>
+                                </div>
+                                <div class="route-actions">
+                                    <button class="btn btn-sm btn-secondary">Select Route</button>
+                                    <button class="btn btn-sm btn-secondary">View Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="route-option">
+                                <div class="route-option-header">
+                                    <div class="route-badge eco">
+                                        <i class="fas fa-leaf"></i>
+                                        Eco-Friendly
+                                    </div>
+                                    <div class="route-time">25 min</div>
+                                </div>
+                                <div class="route-details">
+                                    <div class="route-info">
+                                        <span class="route-distance">11.5 km</span>
+                                        <span class="route-type">Via Park Avenue</span>
+                                    </div>
+                                    <div class="route-conditions">
+                                        <span class="condition light">Light traffic</span>
+                                        <span class="condition-time">15% less fuel</span>
+                                    </div>
+                                </div>
+                                <div class="route-actions">
+                                    <button class="btn btn-sm btn-secondary">Select Route</button>
+                                    <button class="btn btn-sm btn-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Routes -->
+            <section class="recent-routes-section">
+                <div class="recent-routes-header">
+                    <h3>
+                        <i class="fas fa-history"></i>
+                        Recent Routes
+                    </h3>
+                    <button class="btn btn-secondary" id="clearHistory">
+                        <i class="fas fa-trash"></i>
+                        Clear History
+                    </button>
+                </div>
+                
+                <div class="recent-routes-grid">
+                    <div class="recent-route-card">
+                        <div class="route-card-header">
+                            <div class="route-endpoints">
+                                <span class="origin">Downtown Office</span>
+                                <i class="fas fa-arrow-right"></i>
+                                <span class="destination">Tech Campus</span>
+                            </div>
+                            <div class="route-time">2 hours ago</div>
+                        </div>
+                        <div class="route-card-details">
+                            <div class="route-stats">
+                                <span class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    15 min
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-road"></i>
+                                    8.2 km
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-gas-pump"></i>
+                                    0.8L
+                                </span>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Use Again</button>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-route-card">
+                        <div class="route-card-header">
+                            <div class="route-endpoints">
+                                <span class="origin">Home</span>
+                                <i class="fas fa-arrow-right"></i>
+                                <span class="destination">Shopping Mall</span>
+                            </div>
+                            <div class="route-time">1 day ago</div>
+                        </div>
+                        <div class="route-card-details">
+                            <div class="route-stats">
+                                <span class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    12 min
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-road"></i>
+                                    6.5 km
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-gas-pump"></i>
+                                    0.6L
+                                </span>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Use Again</button>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-route-card">
+                        <div class="route-card-header">
+                            <div class="route-endpoints">
+                                <span class="origin">Airport</span>
+                                <i class="fas fa-arrow-right"></i>
+                                <span class="destination">City Center</span>
+                            </div>
+                            <div class="route-time">3 days ago</div>
+                        </div>
+                        <div class="route-card-details">
+                            <div class="route-stats">
+                                <span class="stat">
+                                    <i class="fas fa-clock"></i>
+                                    28 min
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-road"></i>
+                                    18.3 km
+                                </span>
+                                <span class="stat">
+                                    <i class="fas fa-gas-pump"></i>
+                                    1.8L
+                                </span>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Use Again</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/routes.js"></script>
+</body>
+</html>

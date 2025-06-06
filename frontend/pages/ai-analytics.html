@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Analytics - Smart City Traffic Optimization System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/analytics.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <i class="fas fa-brain"></i>
+                <span>AI Analytics</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="monitoring.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Traffic Monitor</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="routes.html" class="nav-link">
+                        <i class="fas fa-route"></i>
+                        <span>Route Planning</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="signals.html" class="nav-link">
+                        <i class="fas fa-traffic-light"></i>
+                        <span>Signal Control</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="ai-analytics.html" class="nav-link active">
+                        <i class="fas fa-brain"></i>
+                        <span>AI Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Loading...</div>
+                    <div class="user-role" id="userRole">Loading...</div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">AI-Powered Traffic Analytics</h1>
+            </div>
+            
+            <div class="top-bar-right">
+                <div class="cloud-status">
+                    <div class="cloud-indicator">
+                        <i class="fab fa-google"></i>
+                        <span>Google Cloud AI</span>
+                        <div class="status-dot active"></div>
+                    </div>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- AI Analytics Content -->
+        <div class="analytics-content">
+            <!-- Cloud AI Overview -->
+            <section class="cloud-ai-overview">
+                <div class="overview-header">
+                    <h3>
+                        <i class="fab fa-google"></i>
+                        Google Cloud AI Integration
+                    </h3>
+                    <div class="cloud-services">
+                        <div class="service-badge">
+                            <i class="fas fa-database"></i>
+                            <span>BigQuery</span>
+                        </div>
+                        <div class="service-badge">
+                            <i class="fas fa-brain"></i>
+                            <span>ML Engine</span>
+                        </div>
+                        <div class="service-badge">
+                            <i class="fas fa-map"></i>
+                            <span>Maps API</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ML Models Section -->
+            <section class="ml-models-section">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-robot"></i>
+                        Machine Learning Models
+                    </h3>
+                </div>
+                
+                <div class="models-grid">
+                    <div class="model-card">
+                        <div class="model-header">
+                            <h4>Traffic Prediction Model</h4>
+                            <div class="model-status active">
+                                <span class="status-indicator"></span>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="model-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Accuracy</span>
+                                <span class="metric-value">94.2%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Predictions/min</span>
+                                <span class="metric-value">1,247</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Last Updated</span>
+                                <span class="metric-value">2 min ago</span>
+                            </div>
+                        </div>
+                        <div class="model-description">
+                            Predicts traffic congestion patterns using historical data and real-time inputs.
+                        </div>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-header">
+                            <h4>Route Optimization Model</h4>
+                            <div class="model-status active">
+                                <span class="status-indicator"></span>
+                                <span>Active</span>
+                            </div>
+                        </div>
+                        <div class="model-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Efficiency</span>
+                                <span class="metric-value">87.8%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Routes/sec</span>
+                                <span class="metric-value">342</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">CO₂ Saved</span>
+                                <span class="metric-value">23.4 tons</span>
+                            </div>
+                        </div>
+                        <div class="model-description">
+                            Optimizes routes for minimal environmental impact and maximum efficiency.
+                        </div>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-header">
+                            <h4>Signal Timing Model</h4>
+                            <div class="model-status training">
+                                <span class="status-indicator"></span>
+                                <span>Training</span>
+                            </div>
+                        </div>
+                        <div class="model-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Progress</span>
+                                <span class="metric-value">78%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">ETA</span>
+                                <span class="metric-value">12 min</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Epochs</span>
+                                <span class="metric-value">156/200</span>
+                            </div>
+                        </div>
+                        <div class="model-description">
+                            Adaptive traffic signal timing based on real-time traffic flow analysis.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BigQuery Analytics -->
+            <section class="bigquery-section">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-database"></i>
+                        BigQuery Real-time Analytics
+                    </h3>
+                    <div class="query-controls">
+                        <button class="btn btn-sm btn-secondary" id="refreshQueries">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                        <button class="btn btn-sm btn-primary" id="newQuery">
+                            <i class="fas fa-plus"></i>
+                            New Query
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bigquery-grid">
+                    <div class="query-card">
+                        <div class="query-header">
+                            <h4>Traffic Volume Analysis</h4>
+                            <div class="query-status">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Completed</span>
+                            </div>
+                        </div>
+                        <div class="query-results">
+                            <div class="result-chart">
+                                <canvas id="volumeChart"></canvas>
+                            </div>
+                            <div class="query-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Rows Processed</span>
+                                    <span class="stat-value">2.4M</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Query Time</span>
+                                    <span class="stat-value">1.2s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="query-card">
+                        <div class="query-header">
+                            <h4>Congestion Hotspots</h4>
+                            <div class="query-status">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Running</span>
+                            </div>
+                        </div>
+                        <div class="query-results">
+                            <div class="result-chart">
+                                <canvas id="hotspotChart"></canvas>
+                            </div>
+                            <div class="query-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Progress</span>
+                                    <span class="stat-value">67%</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">ETA</span>
+                                    <span class="stat-value">45s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Predictive Analytics -->
+            <section class="predictive-section">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-crystal-ball"></i>
+                        Predictive Analytics
+                    </h3>
+                </div>
+                
+                <div class="predictions-grid">
+                    <div class="prediction-card">
+                        <div class="prediction-header">
+                            <h4>Next Hour Forecast</h4>
+                            <div class="confidence-score">
+                                <span>Confidence: 92%</span>
+                            </div>
+                        </div>
+                        <div class="prediction-content">
+                            <div class="forecast-chart">
+                                <canvas id="forecastChart"></canvas>
+                            </div>
+                            <div class="prediction-insights">
+                                <div class="insight">
+                                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                                    <span>Expected congestion on Main St at 5:30 PM</span>
+                                </div>
+                                <div class="insight">
+                                    <i class="fas fa-leaf text-success"></i>
+                                    <span>Eco-route via Park Ave recommended</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="prediction-card">
+                        <div class="prediction-header">
+                            <h4>Weekly Trends</h4>
+                            <div class="confidence-score">
+                                <span>Accuracy: 89%</span>
+                            </div>
+                        </div>
+                        <div class="prediction-content">
+                            <div class="trends-chart">
+                                <canvas id="trendsChart"></canvas>
+                            </div>
+                            <div class="trend-summary">
+                                <div class="trend-item">
+                                    <span class="trend-label">Peak Hours</span>
+                                    <span class="trend-value">8-9 AM, 5-6 PM</span>
+                                </div>
+                                <div class="trend-item">
+                                    <span class="trend-label">Optimal Routes</span>
+                                    <span class="trend-value">+15% efficiency</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/ai-analytics.js"></script>
+</body>
+</html>

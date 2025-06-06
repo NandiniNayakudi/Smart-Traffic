@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Monitoring - Smart Traffic Management System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/monitoring.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <i class="fas fa-traffic-light"></i>
+                <span>SmartTraffic</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="monitoring.html" class="nav-link active">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Traffic Monitor</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="routes.html" class="nav-link">
+                        <i class="fas fa-route"></i>
+                        <span>Route Planning</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="signals.html" class="nav-link">
+                        <i class="fas fa-traffic-light"></i>
+                        <span>Signal Control</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Loading...</div>
+                    <div class="user-role" id="userRole">Loading...</div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Traffic Monitoring</h1>
+            </div>
+            
+            <div class="top-bar-right">
+                <div class="monitoring-controls">
+                    <button class="btn btn-primary" id="refreshData">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                    <button class="btn btn-secondary" id="exportData">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Monitoring Content -->
+        <div class="monitoring-content">
+            <!-- Filters Section -->
+            <section class="filters-section">
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label class="filter-label">Location</label>
+                        <select class="form-select" id="locationFilter">
+                            <option value="all">All Locations</option>
+                            <option value="downtown">Downtown District</option>
+                            <option value="tech">Tech District</option>
+                            <option value="business">Business Center</option>
+                            <option value="residential">Residential Area</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Time Range</label>
+                        <select class="form-select" id="timeRangeFilter">
+                            <option value="1h">Last Hour</option>
+                            <option value="6h">Last 6 Hours</option>
+                            <option value="24h" selected>Last 24 Hours</option>
+                            <option value="7d">Last 7 Days</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Traffic Density</label>
+                        <select class="form-select" id="densityFilter">
+                            <option value="all">All Levels</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <button class="btn btn-primary" id="applyFilters">
+                            <i class="fas fa-filter"></i>
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Real-time Map Section -->
+            <section class="map-section">
+                <div class="map-container">
+                    <div class="map-header">
+                        <h3>
+                            <i class="fas fa-map-marked-alt"></i>
+                            Real-time Traffic Map
+                        </h3>
+                        <div class="map-controls">
+                            <button class="map-control-btn active" data-layer="traffic">
+                                <i class="fas fa-car"></i>
+                                Traffic
+                            </button>
+                            <button class="map-control-btn" data-layer="signals">
+                                <i class="fas fa-traffic-light"></i>
+                                Signals
+                            </button>
+                            <button class="map-control-btn" data-layer="incidents">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Incidents
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="map-view" id="trafficMap">
+                        <!-- Simulated Map View -->
+                        <div class="map-placeholder">
+                            <div class="map-grid">
+                                <div class="intersection" data-id="int-1" data-status="optimal">
+                                    <div class="intersection-icon">
+                                        <i class="fas fa-traffic-light"></i>
+                                    </div>
+                                    <div class="intersection-label">Main & 1st</div>
+                                    <div class="traffic-flow high"></div>
+                                </div>
+                                
+                                <div class="intersection" data-id="int-2" data-status="warning">
+                                    <div class="intersection-icon">
+                                        <i class="fas fa-traffic-light"></i>
+                                    </div>
+                                    <div class="intersection-label">Broadway & 5th</div>
+                                    <div class="traffic-flow medium"></div>
+                                </div>
+                                
+                                <div class="intersection" data-id="int-3" data-status="optimal">
+                                    <div class="intersection-icon">
+                                        <i class="fas fa-traffic-light"></i>
+                                    </div>
+                                    <div class="intersection-label">Park & Central</div>
+                                    <div class="traffic-flow low"></div>
+                                </div>
+                                
+                                <div class="intersection" data-id="int-4" data-status="critical">
+                                    <div class="intersection-icon">
+                                        <i class="fas fa-traffic-light"></i>
+                                    </div>
+                                    <div class="intersection-label">Tech & Innovation</div>
+                                    <div class="traffic-flow high"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="map-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color optimal"></div>
+                                    <span>Optimal</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color warning"></div>
+                                    <span>Warning</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color critical"></div>
+                                    <span>Critical</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Data Tables -->
+            <section class="data-tables-section">
+                <div class="tables-grid">
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>
+                                <i class="fas fa-list"></i>
+                                Live Traffic Data
+                            </h3>
+                            <div class="table-controls">
+                                <button class="btn btn-sm btn-secondary" id="pauseLiveData">
+                                    <i class="fas fa-pause"></i>
+                                    Pause
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <table class="data-table" id="liveDataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Location</th>
+                                        <th>Density</th>
+                                        <th>Vehicle Count</th>
+                                        <th>Avg Speed</th>
+                                        <th>Last Updated</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="liveDataTableBody">
+                                    <!-- Data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="table-card">
+                        <div class="table-header">
+                            <h3>
+                                <i class="fas fa-exclamation-circle"></i>
+                                Active Alerts
+                            </h3>
+                            <div class="table-controls">
+                                <span class="alert-count-badge">
+                                    <span id="alertCount">5</span> Active
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <table class="data-table" id="alertsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Location</th>
+                                        <th>Severity</th>
+                                        <th>Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="alertsTableBody">
+                                    <!-- Data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="monitoring-charts-section">
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Traffic Volume Trends</h3>
+                            <div class="chart-controls">
+                                <select class="form-select" id="volumeChartPeriod">
+                                    <option value="hour">Hourly</option>
+                                    <option value="day" selected>Daily</option>
+                                    <option value="week">Weekly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="volumeTrendsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Speed Distribution</h3>
+                            <div class="chart-controls">
+                                <button class="btn btn-sm btn-secondary" id="refreshSpeedChart">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="speedDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Intersection Details Modal -->
+    <div class="modal-overlay" id="intersectionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="intersectionModalTitle">Intersection Details</h3>
+                <button class="modal-close" id="closeIntersectionModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="intersectionModalBody">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="closeModal">Close</button>
+                <button class="btn btn-primary" id="optimizeIntersection">Optimize</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/monitoring.js"></script>
+</body>
+</html>

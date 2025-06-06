@@ -37,15 +37,20 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 // Public endpoints
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
-                
+
                 // Traffic endpoints - require authentication
-                .requestMatchers("/traffic/ingest").hasAnyRole("ADMIN", "TRAFFIC_MANAGER")
-                .requestMatchers("/traffic/train").hasRole("ADMIN")
-                .requestMatchers("/traffic/**").authenticated()
+                .requestMatchers("/api/v1/traffic/ingest").hasAnyRole("ADMIN", "TRAFFIC_MANAGER")
+                .requestMatchers("/api/v1/traffic/train").hasRole("ADMIN")
+                .requestMatchers("/api/v1/traffic/**").authenticated()
+
+                // AI Analytics endpoints - require authentication
+                .requestMatchers("/api/v1/ai-analytics/predictions/generate").hasAnyRole("ADMIN", "TRAFFIC_MANAGER")
+                .requestMatchers("/api/v1/ai-analytics/models/*/metrics").hasRole("ADMIN")
+                .requestMatchers("/api/v1/ai-analytics/**").authenticated()
                 
                 // All other requests require authentication
                 .anyRequest().authenticated()

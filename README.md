@@ -27,6 +27,15 @@ A comprehensive REST API system for smart traffic management with ML-based predi
 - `SignalOptimizationService` - Traffic signal management
 - `TrendAnalysisService` - Historical data analysis
 
+## 🔒 Security Notice
+
+**⚠️ IMPORTANT:** This repository contains template configuration files with placeholder values. Before deploying:
+
+1. **Never commit real credentials** to version control
+2. **Update all placeholder values** with your actual Google Cloud project details
+3. **Use environment variables** for sensitive configuration
+4. **Review CONFIGURATION_TEMPLATE.md** for secure setup instructions
+
 ## 🚀 Quick Start
 
 ### Prerequisites

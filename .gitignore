@@ -1,0 +1,332 @@
+# Smart City Traffic Optimization System - Git Ignore
+# Enhanced for Smart City Traffic Optimization System Using Cloud-Based AI
+# Research by: Ballaram Krishna Chaithanya, Nandini Nayakudi, Siddharth Vinayak Bahl, Meenakshi
+
+# ===================================
+# SECURITY - NEVER COMMIT THESE FILES
+# ===================================
+
+# Google Cloud Credentials and Keys
+google-cloud-key.json
+*.json
+service-account-*.json
+gcp-credentials.json
+
+# Environment Files with Sensitive Data
+.env.local
+.env.production
+.env.staging
+.env.development
+.env.*.local
+
+# API Keys and Secrets
+api-keys.txt
+secrets.txt
+credentials.txt
+
+# ===================================
+# JAVA / MAVEN
+# ===================================
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ===================================
+# SPRING BOOT
+# ===================================
+
+# Spring Boot
+*.original
+spring-boot-*.jar
+
+# Application logs
+logs/
+*.log.*
+
+# H2 Database files
+*.db
+*.trace.db
+*.lock.db
+
+# ===================================
+# IDE FILES
+# ===================================
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# ===================================
+# OPERATING SYSTEM
+# ===================================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===================================
+# DOCKER
+# ===================================
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# ===================================
+# NODE.JS (for frontend)
+# ===================================
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# ===================================
+# TEMPORARY FILES
+# ===================================
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# ===================================
+# BUILD AND DEPLOYMENT
+# ===================================
+
+# Build directories
+build/
+dist/
+out/
+
+# Deployment files
+deploy/
+deployment/
+
+# ===================================
+# TESTING
+# ===================================
+
+# Test results
+test-results/
+coverage/
+*.coverage
+.pytest_cache/
+
+# ===================================
+# MONITORING AND LOGS
+# ===================================
+
+# Application logs
+logs/
+*.log
+*.log.*
+
+# Monitoring data
+metrics/
+monitoring/
+
+# ===================================
+# CUSTOM PROJECT FILES
+# ===================================
+
+# Custom configuration files
+config.local.*
+settings.local.*
+
+# Data files
+data/
+*.csv
+*.xlsx
+*.json.backup
+
+# Documentation builds
+docs/_build/
+
+# ===================================
+# KEEP THESE TEMPLATE FILES
+# ===================================
+
+# These are safe template files to commit:
+# .env.google-cloud (contains only placeholders)
+# google-cloud-key.json (contains only mock data)
+# CONFIGURATION_TEMPLATE.md
+# GOOGLE_CLOUD_SETUP.md
+# setup-google-cloud.sh (with placeholder values)
+
+# ===================================
+# END OF GITIGNORE
+# ===================================

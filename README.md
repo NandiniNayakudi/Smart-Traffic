@@ -23,7 +23,6 @@ A comprehensive REST API system for smart traffic management with ML-based predi
 - `TrafficController` - Main traffic management endpoints
 - `AuthController` - Authentication and authorization
 - `PredictionService` - ML model integration
-- `RouteService` - Route optimization logic
 - `SignalOptimizationService` - Traffic signal management
 - `TrendAnalysisService` - Historical data analysis
 
